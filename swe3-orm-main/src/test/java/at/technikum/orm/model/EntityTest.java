@@ -1,7 +1,8 @@
-package at.technikum;
+package at.technikum.orm.model;
 
-import at.technikum.orm.model.Entity;
-import at.technikum.domain.*;
+import at.technikum.orm.model.domain.BigEntity;
+import at.technikum.orm.model.domain.MediumEntity;
+import at.technikum.orm.model.domain.SimpleEntity;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

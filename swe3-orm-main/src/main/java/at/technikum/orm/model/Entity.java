@@ -1,9 +1,6 @@
 package at.technikum.orm.model;
 
-import at.technikum.orm.annotations.Column;
-import at.technikum.orm.annotations.Ignore;
-import at.technikum.orm.annotations.Id;
-import at.technikum.orm.annotations.OneToMany;
+import at.technikum.orm.annotations.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +14,9 @@ import java.util.stream.StreamSupport;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-
+/**
+ * Describes the fields of an @{@link Entity}
+ */
 @Getter
 @Setter
 @Slf4j
@@ -48,6 +47,11 @@ public class Entity {
                 return;
             }
 
+            var transientAnnotation = field.getAnnotation(Transient.class);
+            if (transientAnnotation != null) {
+                return;
+            }
+
             var primaryKeyAnnotation = field.getAnnotation(Id.class);
             var foreignKey = field.getAnnotation(OneToMany.class);
             var columnAnnotation = field.getAnnotation(Column.class);
@@ -66,11 +70,17 @@ public class Entity {
                 }
                 foreignKeys.add(newEntity);
             }
-
             entityFields.add(newEntity);
         });
+        if (primaryKey == null) {
+            throw new EntityValidationException(String.format("Entity %s does not have an @Id", type));
+        }
     }
 
+    /**
+     * Return the Entity description for entities that are annotated with @{@link Entity}
+     * Supports caching for entity descriptions.
+     */
     public static Entity ofClass(Class<?> clazz) {
         if (entityCache.containsKey(clazz)) {
             log.debug("Entity Cache hit on class {}", clazz.getSimpleName());

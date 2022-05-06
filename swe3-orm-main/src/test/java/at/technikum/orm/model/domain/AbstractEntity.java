@@ -1,4 +1,4 @@
-package at.technikum.domain;
+package at.technikum.orm.model.domain;
 
 import at.technikum.orm.annotations.Column;
 import at.technikum.orm.annotations.Id;

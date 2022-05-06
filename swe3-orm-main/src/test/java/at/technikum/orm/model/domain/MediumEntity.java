@@ -1,12 +1,10 @@
-package at.technikum.domain;
+package at.technikum.orm.model.domain;
 
 import at.technikum.orm.annotations.Entity;
 import at.technikum.orm.annotations.Id;
 import at.technikum.orm.annotations.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.List;
 
 @Entity(tableName = "table")
 @Data

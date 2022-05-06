@@ -12,6 +12,10 @@ import java.util.Collection;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
+
+/**
+ * Describes the contents of an @{@link Entity}-field
+ */
 @Getter
 @Setter
 public class EntityField {
